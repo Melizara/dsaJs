@@ -1,6 +1,6 @@
 var readline = require("readline-sync");
 var chiffreEnMois = readline.question(
-  "Quelle mois de l'annee en lettres voulez vous ?\n"
+  "Quelle mois de l'annee en lettres voulez-vous ?\n"
 );
 
 if (chiffreEnMois === "janvier") {
