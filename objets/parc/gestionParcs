@@ -1,0 +1,99 @@
+var readline = require("readline-sync");
+var v1 = {
+  marque: "Yotota",
+  model: "Riyas",
+  nombre: 10,
+  prix: 8000,
+};
+var v2 = {
+  marque: "Yotota",
+  model: "Risau",
+  nombre: 5,
+  prix: 7500,
+};
+var v3 = {
+  marque: "Nautre",
+  model: "Negan",
+  nombre: 13,
+  prix: 5000,
+};
+var parcVoiture = {
+  nom: "monSuperParc",
+  adresse: {
+    libelle: "12 rue des fleurs",
+    CP: "3100",
+    ville: "Toulouse",
+  },
+  voiture: [v1, v2, v3],
+  afficherVoitures: function () {
+    var txt = "************* Parc Voiture ***********\n";
+    txt += "**************************************\n";
+    for (var i = 0; i < this.voiture.length; i++) {
+      txt += "Voiture " + (i + 1) + "\n";
+      txt += "Marque : " + this.voiture[i].marque + "\n";
+      txt += "Modele : " + this.voiture[i].model + "\n";
+      txt += "Nombre : " + this.voiture[i].nombre + "\n";
+      txt += "Prix : " + this.voiture[i].prix + "\n";
+      txt += "*************************\n";
+    }
+    console.log(txt);
+  },
+  afficherParc: function () {
+    var txt = "le parc " + this.nom + " présent à l'adresse : \n";
+    txt += this.adresse.libelle + "\n";
+    txt += this.adresse.CP + " " + this.adresse.ville;
+    console.log(txt);
+  },
+  modifParc: function () {
+    function menu() {
+      var txt = "*****************\n";
+      txt += "1/ Modifier le nom \n";
+      txt += "2/ Modifier l'adresse \n";
+      txt += "0/ Annuler";
+      console.log(txt);
+    }
+    var choix = -1;
+    while (choix !== 0) {
+      menu();
+      choix = readline.questionInt("Quel est votre choix ? ");
+      switch (choix) {
+        case 1:
+          this.nom = readline.question("Quelle est le nouveau nom du parc ? ");
+          break;
+        case 2:
+          this.adresse.libelle = readline.question("Saisir la rue : ");
+          this.adresse.CP = readline.question("Saisir le CP : ");
+          this.adresse.ville = readline.question("Saisir la ville : ");
+          break;
+        case 0:
+          console.log("A +");
+          break;
+        default:
+          console.log("Choix introuvable");
+          break;
+      }
+    }
+  },
+  supprParc: function () {
+    var modelSaisi = readline.question("Saisir le model a supprimer : ");
+    for (var i = 0; i < this.voiture.length; i++) {
+      if (modelSaisi.toLowerCase() === this.voiture[i].model.toLowerCase()) {
+        while (confirmation !== 2 && confirmation !== 1) {
+          var confirmation = readline.questionInt(
+            "Voulez-vous vraiment supprimer cet voiture ?(1:Oui ,2:Non) ",
+          );
+          if (confirmation === 1) {
+            this.voiture.splice(i, 1);
+            console.log("Suprression réussi ! ");
+          } else if (confirmation === 2) {
+            console.log("Annulation .");
+          } else {
+            console.log("valeur non prise en compte .");
+          }
+        }
+      }
+    }
+  },
+};
+
+module.exports = parcVoiture;
